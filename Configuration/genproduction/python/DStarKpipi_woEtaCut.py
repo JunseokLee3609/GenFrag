@@ -74,16 +74,17 @@ generator = ExternalGeneratorFilter(_generator)
 
 dfilter = cms.EDFilter(
     "MCSingleParticleFilter",
-    MaxEta = cms.untracked.vdouble(99,99),
-    MinEta = cms.untracked.vdouble(-99,-99),
+    MaxEta = cms.untracked.vdouble(1.2,1.2),
+    MinEta = cms.untracked.vdouble(-1.2,-1.2),
+    pTMin = cms.vdouble(2.0,2.0),
     ParticleID = cms.untracked.vint32(413,-413)
 )
 
 d0filter = cms.EDFilter(
     "MCMultiParticleFilter",
     AcceptMore = cms.bool(True),
-    EtaMax = cms.vdouble(99, 99),
-    EtaMin = cms.vdouble(-99, -99),
+    EtaMax = cms.vdouble(2.8, 2.8),
+    EtaMin = cms.vdouble(-2.8, -2.8),
     MotherID = cms.untracked.vint32(421),
     NumRequired = cms.int32(1),
     ParticleID = cms.vint32(-321, 211),
@@ -98,9 +99,9 @@ decayfilter = cms.EDFilter(
     NumberDaughters = cms.untracked.int32(2),
     ParticleID      = cms.untracked.int32(413),  ## DStar+ (already chage conjugate)
     DaughterIDs     = cms.untracked.vint32(421,211), ## D0 and pi+
-#    MinPt           = cms.untracked.vdouble( 0. ,  0.4), ## cuts based on data
-    MinEta          = cms.untracked.vdouble(-99., -99.), ## cuts based on data
-    MaxEta          = cms.untracked.vdouble( 99.,  99.) ## cuts based on data
+    MinPt           = cms.untracked.vdouble( 0.0 ,  0.0), ## cuts based on data
+    MinEta          = cms.untracked.vdouble(-2.8, -2.8), ## cuts based on data
+    MaxEta          = cms.untracked.vdouble( 2.8,  2.8) ## cuts based on data
 )
 
 
