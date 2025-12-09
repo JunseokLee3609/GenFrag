@@ -43,7 +43,7 @@ CDecay Myanti-D0
 End
 """
 ),
-                           list_forced_decays = cms.vstring('MyD0', 'Myanti-D0','MyDstar','Myanti-Dstar'),
+                           list_forced_decays = cms.vstring('MyDstar','Myanti-Dstar'),
                            convertPythiaCodes = cms.untracked.bool(False)
                          ),
                          operates_on_particles = cms.vint32(),
@@ -53,14 +53,15 @@ End
         pythia8CommonSettingsBlock,
         pythia8CP5SettingsBlock,
         processParameters = cms.vstring(
+            #'PhaseSpace:pTHatMin = 15.',
 	    "SoftQCD:nonDiffractive = on",
-            'PTFilter:filter = on', 
-            'PTFilter:quarkToFilter = 5', 
+            'PTFilter:filter = on',
+            'PTFilter:quarkToFilter = 5',
             'PTFilter:scaleToFilter = 1.0'
 	    ),
         parameterSets = cms.vstring(
-	    'pythia8CommonSettings', 
-            #'pythia8CUEP8M1Settings', 
+	    'pythia8CommonSettings',
+            #'pythia8CUEP8M1Settings',
             'pythia8CP5Settings',
             'processParameters')
     )
@@ -69,18 +70,26 @@ End
 from GeneratorInterface.Core.ExternalGeneratorFilter import ExternalGeneratorFilter
 generator = ExternalGeneratorFilter(_generator)
 
-### Filters 
+### Filters
 
+
+dfilter = cms.EDFilter(
+    "MCSingleParticleFilter",
+    MaxEta = cms.untracked.vdouble(1.2,1.2),
+    MinEta = cms.untracked.vdouble(-1.2,-1.2),
+    PtMin = cms.vdouble(2.0,2.0),
+    ParticleID = cms.untracked.vint32(413,-413)
+)
 
 d0filter = cms.EDFilter(
     "MCMultiParticleFilter",
     AcceptMore = cms.bool(True),
-    EtaMax = cms.vdouble(2.5, 2.5),
-    EtaMin = cms.vdouble(-2.5, -2.5),
+    EtaMax = cms.vdouble(2.8, 2.8),
+    EtaMin = cms.vdouble(-2.8, -2.8),
     MotherID = cms.untracked.vint32(421),
     NumRequired = cms.int32(1),
     ParticleID = cms.vint32(-321, 211),
-    PtMin = cms.vdouble(0.4, 0.4),
+    PtMin = cms.vdouble(0., 0.),
     Status = cms.vint32(0, 0)
 
 )
@@ -91,24 +100,10 @@ decayfilter = cms.EDFilter(
     NumberDaughters = cms.untracked.int32(2),
     ParticleID      = cms.untracked.int32(413),  ## DStar+ (already chage conjugate)
     DaughterIDs     = cms.untracked.vint32(421,211), ## D0 and pi+
-    MinPt           = cms.untracked.vdouble( 0. ,  0.3), ## cuts based on data
-    MinEta          = cms.untracked.vdouble(-999.0, -2.4), ## cuts based on data
-    MaxEta          = cms.untracked.vdouble( 999.0,  2.4) ## cuts based on data
-)
-D0rapidityfilter = cms.EDFilter("PythiaFilter",
-        ParticleID = cms.untracked.int32(421),
-        MinPt = cms.untracked.double(0.0),
-        MaxPt = cms.untracked.double(500.),
-        MinRapidity = cms.untracked.double(-2.4),
-        MaxRapidity = cms.untracked.double(2.4),
+    MinPt           = cms.untracked.vdouble( 0.0 ,  0.0), ## cuts based on data
+    MinEta          = cms.untracked.vdouble(-2.8, -2.8), ## cuts based on data
+    MaxEta          = cms.untracked.vdouble( 2.8,  2.8) ## cuts based on data
 )
 
-Dstarrapidityfilter = cms.EDFilter("PythiaFilter",
-        ParticleID = cms.untracked.int32(413),
-        MinPt = cms.untracked.double(1.0),
-        MaxPt = cms.untracked.double(500.),
-        MinRapidity = cms.untracked.double(-2.4),
-        MaxRapidity = cms.untracked.double(2.4),
-)
 
-ProductionFilterSequence = cms.Sequence(generator*Dstarrapidityfilter*D0rapidityfilter*decayfilter*d0filter)
+ProductionFilterSequence = cms.Sequence(generator*dfilter*decayfilter*d0filter)
