@@ -43,7 +43,7 @@ CDecay Myanti-D0
 End
 """
 ),
-                           list_forced_decays = cms.vstring('MyD0', 'Myanti-D0','MyDstar','Myanti-Dstar'),
+                           list_forced_decays = cms.vstring('MyDstar','Myanti-Dstar'),
                            convertPythiaCodes = cms.untracked.bool(False)
                          ),
                          operates_on_particles = cms.vint32(),
@@ -53,6 +53,7 @@ End
         pythia8CommonSettingsBlock,
         pythia8CP5SettingsBlock,
         processParameters = cms.vstring(
+            #'PhaseSpace:pTHatMin = 15.',
 	    "SoftQCD:nonDiffractive = on",
             'PTFilter:filter = on',
             'PTFilter:quarkToFilter = 4',
