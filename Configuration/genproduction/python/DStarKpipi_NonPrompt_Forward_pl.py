@@ -74,10 +74,10 @@ generator = ExternalGeneratorFilter(_generator)
 
 
 dfilter = cms.EDFilter(
-    "MCSingleParticleFilter",
-    MaxEta = cms.untracked.vdouble(1.2,1.2),
-    MinEta = cms.untracked.vdouble(-1.2,-1.2),
-    PtMin = cms.vdouble(2.0,2.0),
+    "MCSingleParticleYPt",
+    MaxY = cms.untracked.vdouble(1.8,1.8),
+    MinY = cms.untracked.vdouble(0.9,0.9),
+    MinPt = cms.vdouble(4.0,4.0),
     ParticleID = cms.untracked.vint32(413,-413)
 )
 

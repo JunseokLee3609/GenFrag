@@ -43,7 +43,7 @@ CDecay Myanti-D0
 End
 """
 ),
-                           list_forced_decays = cms.vstring('MyD0','Myanti-D0'),
+                           list_forced_decays = cms.vstring('MyDstar','Myanti-Dstar'),
                            convertPythiaCodes = cms.untracked.bool(False)
                          ),
                          operates_on_particles = cms.vint32(),
@@ -56,7 +56,7 @@ End
             #'PhaseSpace:pTHatMin = 15.',
 	    "SoftQCD:nonDiffractive = on",
             'PTFilter:filter = on',
-            'PTFilter:quarkToFilter = 5',
+            'PTFilter:quarkToFilter = 4',
             'PTFilter:scaleToFilter = 1.0'
 	    ),
         parameterSets = cms.vstring(
@@ -74,10 +74,10 @@ generator = ExternalGeneratorFilter(_generator)
 
 
 dfilter = cms.EDFilter(
-    "MCSingleParticleFilter",
-    MaxEta = cms.untracked.vdouble(1.2,1.2),
-    MinEta = cms.untracked.vdouble(-1.2,-1.2),
-    PtMin = cms.vdouble(2.0,2.0),
+    "MCSingleParticleYPt",
+    MaxY = cms.untracked.vdouble(-0.9,-0.9),
+    MinY = cms.untracked.vdouble(-1.8,-1.8),
+    MinPt = cms.vdouble(4.0,4.0),
     ParticleID = cms.untracked.vint32(413,-413)
 )
 
