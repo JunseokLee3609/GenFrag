@@ -77,7 +77,7 @@ dfilter = cms.EDFilter(
     "MCSingleParticleYPt",
     MaxY = cms.untracked.vdouble(1.8,1.8),
     MinY = cms.untracked.vdouble(-1.8,-1.8),
-    MinPt = cms.untracked.vdouble(10.0,10.0),
+    MinPt = cms.untracked.vdouble(0.0,0.0),
     ParticleID = cms.untracked.vint32(413,-413)
 )
 
@@ -106,4 +106,4 @@ decayfilter = cms.EDFilter(
 )
 
 
-ProductionFilterSequence = cms.Sequence(generator*decayfilter)
+ProductionFilterSequence = cms.Sequence(generator*dfilter)

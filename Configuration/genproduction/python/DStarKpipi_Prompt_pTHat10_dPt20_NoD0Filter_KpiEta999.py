@@ -106,4 +106,4 @@ decayfilter = cms.EDFilter(
 )
 
 
-ProductionFilterSequence = cms.Sequence(generator*dfilter*decayfilter)
+ProductionFilterSequence = cms.Sequence(generator*dfilter)
