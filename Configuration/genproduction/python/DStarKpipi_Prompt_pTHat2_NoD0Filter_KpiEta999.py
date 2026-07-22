@@ -77,7 +77,7 @@ dfilter = cms.EDFilter(
     "MCSingleParticleYPt",
     MaxY = cms.untracked.vdouble(1.8,1.8),
     MinY = cms.untracked.vdouble(-1.8,-1.8),
-    MinPt = cms.untracked.vdouble(0.0,0.0),
+    MinPt = cms.untracked.vdouble(4.0,4.0),
     ParticleID = cms.untracked.vint32(413,-413)
 )
 
